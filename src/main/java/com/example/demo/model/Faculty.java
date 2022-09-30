@@ -10,6 +10,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @Entity
+@Table(name = "faculty")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -27,5 +28,4 @@ public class Faculty {
     private String facultyDescription;
     private String facultyDepartment;
     private  String facultyType;
-
        }
