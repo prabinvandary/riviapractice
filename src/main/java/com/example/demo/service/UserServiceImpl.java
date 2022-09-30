@@ -10,6 +10,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
@@ -17,7 +18,6 @@ public class UserServiceImpl implements UserService {
     private final UserDetailMapper userDetailMapper;
     private final ObjectMapper objectMapper;
     private final StudentRepository studentRepository;
-
 
     @Override
     public Object getUserByUserId(Integer userId) {
@@ -53,5 +53,9 @@ public class UserServiceImpl implements UserService {
         Student student = studentRepository.findById(userDetailRequestPojo.getStudentDetailId()).orElseThrow(() -> new RuntimeException("Student Detail Id Not Exist."));
         user.setStudent(student);
         userRepo.save(user);
+    }
+    @Override
+    public List<User> getUser() {
+        return userRepo.findAll();
     }
 }

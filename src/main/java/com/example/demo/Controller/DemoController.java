@@ -1,6 +1,7 @@
 package com.example.demo.Controller;
 
 import com.example.demo.model.Student;
+import com.example.demo.model.User;
 import com.example.demo.pojo.ApiResponse;
 import com.example.demo.pojo.StudentDetailRequestPojo;
 import com.example.demo.pojo.UserDetailRequestPojo;
@@ -56,7 +57,7 @@ public class DemoController  extends ApiResponse {
 //    }
     //Same bata update ra save Day 2 Task
     @PostMapping("save")
-    public ApiResponse saveStudentDetails(@RequestBody StudentDetailRequestPojo studentDetailRequestPojo) {
+    public ApiResponse saveStudentDetails(@RequestBody @Valid StudentDetailRequestPojo studentDetailRequestPojo) {
         studentService.saveStudentDetails(studentDetailRequestPojo);
         return success("Student saved sucessfully", null);
     }
@@ -76,5 +77,9 @@ public class DemoController  extends ApiResponse {
     public ApiResponse saveUserDetails(@RequestBody @Valid UserDetailRequestPojo userDetailRequestPojo) {
         userService.saveUserDetails(userDetailRequestPojo);
         return success("User details saved successfully", null);
+    }
+    @GetMapping("getalluser")
+    public List<User> getUser() {
+        return userService.getUser();
     }
 }

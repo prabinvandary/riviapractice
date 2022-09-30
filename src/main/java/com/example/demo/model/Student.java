@@ -1,13 +1,16 @@
 package com.example.demo.model;
 
 
+import org.hibernate.validator.constraints.Length;
+
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import java.time.LocalDate;
 import java.time.Period;
 
 @Entity
-@Table
+@Table(name = "student", uniqueConstraints = {@UniqueConstraint(columnNames = "email", name = "UNIQUE_student_email")})
 public class Student {
     @Id
     @SequenceGenerator(
@@ -20,13 +23,17 @@ public class Student {
             generator = "student_sequence"
     )
 private Long id;
-//    @Pattern(regexp="[a-zA-Z]",message="Only ABCD")
+
+    @Column(name = "name")
+    @NotNull
     private  String name;
 
+    @Column(name="email")
+    @NotNull
     private  String email;
-private LocalDate dob;
-@Transient
-private  Integer age;
+    private LocalDate dob;
+    @Transient
+    private  Integer age;
 
     public Student() {
 
@@ -100,5 +107,7 @@ private  Integer age;
                 ", age=" + age +
                 '}';
     }
+    @ManyToOne
+    @JoinColumn(name = "facultyId", referencedColumnName = "facultyId", foreignKey = @ForeignKey(name = "FK_student_faculty"))
+    private Faculty faculty;
 }
-
