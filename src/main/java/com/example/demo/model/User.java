@@ -28,6 +28,7 @@ public class User {
     private String userName;
     @Enumerated(EnumType.STRING)
     private UserType userType;
+
     @OneToOne
     @JoinColumn(name = "student_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "FK_user_student"))
     private Student student;

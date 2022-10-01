@@ -52,6 +52,7 @@ public class StudentServiceImpl implements StudentService {
                     "student with id"+ studentId + " does not exists"
             );
         }
+
         else {
             studentRepository.deleteById(studentId);
         }
@@ -76,8 +77,8 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public Object getStudentById(Long id) {
-        Student byId=studentRepository.findById(id).orElseThrow(()->new RuntimeException("Student Not found by given id"));
-        return null;
+        return studentRepository.findById(id).orElseThrow(()->new RuntimeException("Student Not found by given id"));
+
     }
 
     @Override
