@@ -107,7 +107,7 @@ private Long id;
                 ", age=" + age +
                 '}';
     }
-    @ManyToOne
-    @JoinColumn(name = "facultyId", referencedColumnName = "facultyId", foreignKey = @ForeignKey(name = "FK_student_faculty"))
-    private Faculty faculty;
+//    @OneToOne
+//    @JoinColumn(name = "facultyId", referencedColumnName = "facultyId", foreignKey = @ForeignKey(name = "FK_student_faculty"))
+//    private Faculty faculty;
 }

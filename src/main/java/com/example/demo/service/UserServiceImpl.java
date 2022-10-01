@@ -49,7 +49,6 @@ public class UserServiceImpl implements UserService {
         if (userDetailRequestPojo.getUserId()!= null)
             user = userRepo.findById(userDetailRequestPojo.getUserId()).orElse(new User());
         user = objectMapper.convertValue(userDetailRequestPojo, User.class);
-        userRepo.save(user);
         Student student = studentRepository.findById(userDetailRequestPojo.getStudentDetailId()).orElseThrow(() -> new RuntimeException("Student Detail Id Not Exist."));
         user.setStudent(student);
         userRepo.save(user);
