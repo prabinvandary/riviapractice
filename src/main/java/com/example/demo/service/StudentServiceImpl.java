@@ -1,11 +1,13 @@
 package com.example.demo.service;
 
 import com.example.demo.mapper.StudentDetailMapper;
+import com.example.demo.model.Faculty;
 import com.example.demo.model.Student;
-import com.example.demo.pojo.ApiResponse;
+import com.example.demo.pojo.FacultyDetailRequestPojo;
 import com.example.demo.pojo.StudentDetailRequestPojo;
 import com.example.demo.pojo.StudentDetailResponsePojo;
 import com.example.demo.projection.StudentDetailProjection;
+import com.example.demo.repository.FacultyRepo;
 import com.example.demo.repository.StudentRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Service;
@@ -21,13 +23,17 @@ public class StudentServiceImpl implements StudentService {
     private final ObjectMapper objectMapper;
 
     private  final StudentDetailMapper studentDetailMapper;
+    private  final FacultyRepo facultyRepo;
+    private  final FacultyDetailRequestPojo facultyDetailRequestPojo;
 
 
-    public StudentServiceImpl(StudentRepository studentRepository, ObjectMapper objectMapper, StudentDetailMapper studentDetailMapper) {
+    public StudentServiceImpl(StudentRepository studentRepository, ObjectMapper objectMapper, StudentDetailMapper studentDetailMapper, FacultyRepo facultyRepo, FacultyDetailRequestPojo facultyDetailRequestPojo) {
 
         this.studentRepository = studentRepository;
         this.objectMapper = objectMapper;
         this.studentDetailMapper = studentDetailMapper;
+        this.facultyRepo = facultyRepo;
+        this.facultyDetailRequestPojo = facultyDetailRequestPojo;
     }
      @Override
     public List<Student> getstudent() {
@@ -94,7 +100,9 @@ public class StudentServiceImpl implements StudentService {
               student=studentRepository.findById(studentDetailRequestPojo.getId()).orElse(new Student());
 
         student=objectMapper.convertValue(studentDetailRequestPojo,Student.class);
-
+        System.out.println(student);
+//       Faculty faculty = facultyRepo.findById(facultyDetailRequestPojo.getFacyltyId()).orElseThrow(() -> new RuntimeException("Student Detail Id Not Exist."));
+//        student.setFaculty(faculty);
         studentRepository.save(student);
         //        User user = null;
         //        if (userDetailRequestPojo.getUserId()!= null)
@@ -104,6 +112,5 @@ public class StudentServiceImpl implements StudentService {
         //        Faculty student = studentRepository.findById(userDetailRequestPojo.getStudentDetailId()).orElseThrow(() -> new RuntimeException("Student Detail Id Not Exist."));
         //        user.setStudent(student);
         //        userRepo.save(user);
-
     }
 }

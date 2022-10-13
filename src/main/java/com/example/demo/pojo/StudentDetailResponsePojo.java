@@ -15,4 +15,7 @@ public class StudentDetailResponsePojo {
     private  String email;
     private LocalDate dob;
     private  int age;
+    private  String address;
+    private Integer facultyId;
 }
+

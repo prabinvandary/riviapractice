@@ -11,6 +11,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
@@ -18,7 +20,10 @@ public class UserServiceImpl implements UserService {
     private final UserDetailMapper userDetailMapper;
     private final ObjectMapper objectMapper;
     private final StudentRepository studentRepository;
-
+    @Override
+    public Optional<User> findById(Integer id) {
+        return userRepo.findById(id);
+    }
     @Override
     public Object getUserByUserId(Integer userId) {
         return userRepo.findById(userId).orElseThrow(() -> new RuntimeException("User not found by given id"));
@@ -49,6 +54,7 @@ public class UserServiceImpl implements UserService {
         if (userDetailRequestPojo.getUserId()!= null)
             user = userRepo.findById(userDetailRequestPojo.getUserId()).orElse(new User());
         user = objectMapper.convertValue(userDetailRequestPojo, User.class);
+        System.out.println(user);
         Student student = studentRepository.findById(userDetailRequestPojo.getStudentDetailId()).orElseThrow(() -> new RuntimeException("Student Detail Id Not Exist."));
         user.setStudent(student);
         userRepo.save(user);
@@ -57,4 +63,5 @@ public class UserServiceImpl implements UserService {
     public List<User> getUser() {
         return userRepo.findAll();
     }
+
 }

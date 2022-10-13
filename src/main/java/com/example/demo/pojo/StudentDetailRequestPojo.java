@@ -17,5 +17,7 @@ public class StudentDetailRequestPojo {
     @Pattern(regexp = "^[A-Za-z]+[A-Za-z ]*$",message = "Enter only strings")
     private  String name;
     private  String email;
+    private String address;
     private LocalDate dob;
+    private Integer facultyId;
 }

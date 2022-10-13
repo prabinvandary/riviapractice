@@ -21,4 +21,6 @@ public interface UserRepo extends JpaRepository<User, Integer> {
 
     @Query(value = "select id, userName as \"userName\" from users u where \"userName\" = ?1", nativeQuery = true)
     UserDetailProjection getUserByUserName(String userName);
+    @Query(value = "select * from users where id = ?1", nativeQuery = true)
+    UserDataProjection findUserByUserId(Integer id);
 }

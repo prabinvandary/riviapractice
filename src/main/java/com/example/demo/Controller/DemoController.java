@@ -1,10 +1,13 @@
 package com.example.demo.Controller;
 
+import com.example.demo.model.Faculty;
 import com.example.demo.model.Student;
 import com.example.demo.model.User;
 import com.example.demo.pojo.ApiResponse;
+import com.example.demo.pojo.FacultyDetailRequestPojo;
 import com.example.demo.pojo.StudentDetailRequestPojo;
 import com.example.demo.pojo.UserDetailRequestPojo;
+import com.example.demo.service.FacultyService;
 import com.example.demo.service.StudentService;
 import com.example.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,11 +22,13 @@ import java.util.List;
 public class DemoController  extends ApiResponse {
     private final StudentService studentService;
     private final UserService userService;
+    private  final FacultyService facultyService;
 
     @Autowired
-    public DemoController(StudentService studentService, UserService userService) {
+    public DemoController(StudentService studentService, UserService userService, FacultyService facultyService) {
         this.studentService = studentService;
         this.userService = userService;
+        this.facultyService = facultyService;
     }
 
     @GetMapping
@@ -62,6 +67,28 @@ public class DemoController  extends ApiResponse {
         return success("Student saved sucessfully", null);
     }
 
+
+//Faculty
+
+    @GetMapping("getfaculty/{facultyId}")
+    public ApiResponse getFacultyById(@PathVariable(name = "facultyId") Integer facultyId) {
+        return success("User data fetched successufly",facultyService.getFacultyById(facultyId));
+    }
+
+    @GetMapping("getFacultyByName")
+    public ApiResponse getFacultyByName(@RequestParam(name = "userName", required = false, defaultValue = "0") String facultyName) {
+        return success("User Date Fetched Successfully", facultyService.getFacultyByName(facultyName));
+    }
+
+    @PostMapping("saveFaculty")
+    public ApiResponse saveFacultyDetails(@RequestBody @Valid FacultyDetailRequestPojo facultyDetailRequestPojo) {
+        facultyService.saveFacultyDetails(facultyDetailRequestPojo);
+        return success("Faculty details saved successfully", null);
+    }
+    @GetMapping("getAllFaculty")
+    public List<Faculty> getFaculty() {
+        return facultyService.getFaculty();
+    }
 
     @GetMapping("getUser/{userId}")
     public ApiResponse getUserById(@PathVariable(name = "userId") Integer userId) {
