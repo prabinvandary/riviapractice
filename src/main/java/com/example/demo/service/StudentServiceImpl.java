@@ -101,9 +101,9 @@ public class StudentServiceImpl implements StudentService {
 
         student=objectMapper.convertValue(studentDetailRequestPojo,Student.class);
         System.out.println(student);
-//       Faculty faculty = facultyRepo.findById(facultyDetailRequestPojo.getFacyltyId()).orElseThrow(() -> new RuntimeException("Student Detail Id Not Exist."));
-//        student.setFaculty(faculty);
-        studentRepository.save(student);
+       Faculty faculty = facultyRepo.findById(facultyDetailRequestPojo.getFacultyId()).orElseThrow(() -> new RuntimeException("Student Detail Id Not Exist."));
+
+                studentRepository.save(student);
         //        User user = null;
         //        if (userDetailRequestPojo.getUserId()!= null)
         //            user = userRepo.findById(userDetailRequestPojo.getUserId()).orElse(new User());

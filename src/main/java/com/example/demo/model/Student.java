@@ -29,5 +29,8 @@ import java.util.Date;
         private String email;
         private String address;
         private LocalDate dob;
+        @ManyToOne
+        @JoinColumn(name = "faculty_faculty_id")
+        private Faculty faculty;
 
     }

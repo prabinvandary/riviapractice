@@ -41,14 +41,11 @@ public class FacultyServiceImpl<facultyDetailRequestPojo> implements FacultyServ
 
     @Override
     public void saveFacultyDetails(FacultyDetailRequestPojo facultyDetailRequestPojo) {
-        System.out.println(objectMapper.convertValue(facultyDetailRequestPojo,Faculty.class));
         Faculty faculty = null;
         if (facultyDetailRequestPojo.getFacultyId()!= null)
             faculty = facultyRepo.findById(facultyDetailRequestPojo.getFacultyId()).orElse(new Faculty());
         faculty = objectMapper.convertValue(facultyDetailRequestPojo, Faculty.class);
         System.out.println( faculty);
-
         facultyRepo.save(faculty);
-        System.out.println("Hello"+facultyDetailRequestPojo.getFacultyId());
     }
 }
