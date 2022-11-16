@@ -1,5 +1,6 @@
 package com.example.demo.mapper;
 
+import com.example.demo.model.User;
 import com.example.demo.pojo.UserDetailResponsePojo;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
@@ -8,5 +9,5 @@ import org.apache.ibatis.annotations.Select;
 public interface UserDetailMapper {
 
     @Select("select userId, UserName as \"userName\" from users u where \"userName\" = #{userName}")
-    UserDetailResponsePojo getUserDetailByUserName(String UserName);
+    User getUserDetailByUserName(String UserName);
 }

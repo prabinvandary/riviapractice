@@ -25,6 +25,9 @@ public class UserDetailRequestPojo {
     @NotBlank(message = "User name cannot be blank")
     @Size(min = 5, max = 15, message = "User Name cannot be less than 5 or greater than 15")
     private String userName;
+
+    private String password;
+
     private UserType userType;
 
 

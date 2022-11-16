@@ -11,10 +11,12 @@ import java.util.Optional;
 public interface UserService {
     Object getUserByUserId(Integer userId);
 
-    Object getUserByUserName(String userName);
+    User getUserByUserName(String userName);
 
     public List<User> getUser();
     void saveUserDetails(UserDetailRequestPojo userDetailRequestPojo);
     Optional<User> findById(Integer id);
+
+
 
 }

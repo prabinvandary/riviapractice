@@ -11,7 +11,7 @@ import java.util.List;
 public interface UserRepo extends JpaRepository<User, Integer> {
 
     @Query(value = "select * from users where userName = ?1", nativeQuery = true)
-    List<User> findUserByUsername(String userName);
+    User findByUsername(String userName);
 
     @Query(value = "select * from users order by id desc", nativeQuery = true)
     List<User> getList();
