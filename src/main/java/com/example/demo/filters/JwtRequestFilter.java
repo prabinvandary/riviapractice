@@ -1,8 +1,7 @@
 package com.example.demo.filters;
 
+import com.example.demo.security.CustomUserDetailsService;
 import com.example.demo.util.JwtUtil;
-import io.javabrains.springsecurityjwt.MyUserDetailsService;
-import io.javabrains.springsecurityjwt.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -21,7 +20,7 @@ import java.io.IOException;
 public class JwtRequestFilter extends OncePerRequestFilter {
 
     @Autowired
-    private MyUserDetailsService userDetailsService;
+    private CustomUserDetailsService userDetailsService;
 
     @Autowired
     private JwtUtil jwtUtil;
@@ -56,5 +55,4 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         }
         chain.doFilter(request, response);
     }
-
 }

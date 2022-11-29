@@ -8,7 +8,6 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.List;
 
 @Entity
 @Table(name = "users", uniqueConstraints = {@UniqueConstraint(columnNames = "userName", name = "UNIQUE_user_userName")})
@@ -26,6 +25,11 @@ public class User {
     @Column(name = "userName")
     @NotNull
     private String userName;
+
+    @NotNull
+    @Column(name = "password")
+    private String password;
+
     @Enumerated(EnumType.STRING)
     private UserType userType;
     @OneToOne

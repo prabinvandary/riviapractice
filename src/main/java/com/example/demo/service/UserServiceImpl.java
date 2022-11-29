@@ -3,11 +3,12 @@ import com.example.demo.mapper.UserDetailMapper;
 import com.example.demo.model.Student;
 import com.example.demo.model.User;
 import com.example.demo.pojo.UserDetailRequestPojo;
-import com.example.demo.pojo.UserDetailResponsePojo;
 import com.example.demo.repository.StudentRepository;
 import com.example.demo.repository.UserRepo;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,6 +21,9 @@ public class UserServiceImpl implements UserService {
     private final UserDetailMapper userDetailMapper;
     private final ObjectMapper objectMapper;
     private final StudentRepository studentRepository;
+
+    @Autowired
+    PasswordEncoder passwordEncoder;
     @Override
     public Optional<User> findById(Integer id) {
         return userRepo.findById(id);
@@ -27,26 +31,13 @@ public class UserServiceImpl implements UserService {
     @Override
     public Object getUserByUserId(Integer userId) {
         return userRepo.findById(userId).orElseThrow(() -> new RuntimeException("User not found by given id"));
-
     }
 
     @Override
-    public Object getUserByUserName(String userName) {
-        UserDetailResponsePojo userDetailResponsePojo = userDetailMapper.getUserDetailByUserName(userName);
-        return userDetailResponsePojo;
+    public User getUserByUserName(String userName) {
+        return  userRepo.findUserByUsername(userName);
     }
 
-//    @Override
-//    public Object getUserById(Integer id) {
-//        return userRepo.findById(id).orElseThrow(() -> new RuntimeException("User not found by given id"));
-//
-//    }
-//
-//    @Override
-//    public Object getUserByName(String name) {
-//        UserDetailResponsePojo userDetailResponsePojo = userDetailMapper.getUserDetailByUserName(name);
-//        return userDetailResponsePojo;
-//    }
 
     @Override
     public void saveUserDetails(UserDetailRequestPojo userDetailRequestPojo) {
@@ -54,8 +45,8 @@ public class UserServiceImpl implements UserService {
         if (userDetailRequestPojo.getUserId()!= null)
             user = userRepo.findById(userDetailRequestPojo.getUserId()).orElse(new User());
         user = objectMapper.convertValue(userDetailRequestPojo, User.class);
-        System.out.println(user);
         Student student = studentRepository.findById(userDetailRequestPojo.getStudentDetailId()).orElseThrow(() -> new RuntimeException("Student Detail Id Not Exist."));
+        user.setPassword(passwordEncoder.encode(userDetailRequestPojo.getPassword()));
         user.setStudent(student);
         userRepo.save(user);
     }

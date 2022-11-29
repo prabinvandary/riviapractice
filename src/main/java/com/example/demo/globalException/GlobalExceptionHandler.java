@@ -32,8 +32,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ApiResponse handelMethodArgumentNotValidException(MethodArgumentNotValidException ex) {
         ApiResponse apiResponse = new ApiResponse();
-        return apiResponse.error(Objects.requireNonNull(ex.getFieldError()).getDefaultMessage(), null);
-
+        return apiResponse.error(Objects.requireNonNull(ex.getCause().getLocalizedMessage()), null);
     }
 
     @ExceptionHandler(Exception.class)

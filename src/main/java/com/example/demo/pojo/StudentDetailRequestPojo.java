@@ -14,7 +14,6 @@ import java.time.LocalDate;
 
 public class StudentDetailRequestPojo {
     private Long id;
-    @Pattern(regexp = "^[A-Za-z]+[A-Za-z ]*$",message = "Enter only strings")
     private  String name;
     private  String email;
     private String address;
